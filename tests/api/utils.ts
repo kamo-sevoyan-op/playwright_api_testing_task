@@ -39,10 +39,19 @@ export async function assertNonExistingPage(
   expect(response.status()).toBe(404);
 }
 
-export function assertDefaultPage(
-  result: any,
-) { 
+export function assertDefaultPage(result: any) {
   const { page: pageNumber } = result;
   expect(pageNumber).toBeTruthy();
   expect(pageNumber).toBe(1);
+}
+
+export async function assertNonExistingId(
+  request: APIRequestContext,
+  endpoint: string,
+  id: number
+) {
+  const response = await request.get(`/${endpoint}/${id}`);
+
+  expect(response.ok()).toBeFalsy();
+  expect(response.status()).toBe(404);
 }

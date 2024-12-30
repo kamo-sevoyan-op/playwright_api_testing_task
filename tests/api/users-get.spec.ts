@@ -1,6 +1,7 @@
 import { test, expect, APIResponse } from '@playwright/test';
 import {
   assertDefaultPage,
+  assertNonExistingId,
   assertNonExistingPage,
   assertPageNumber,
   validateRequest,
@@ -77,10 +78,7 @@ test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
       request,
     }) => {
       const userId = 13;
-      const response = await request.get(`/${USERS_ENDPOINT}/${userId}`);
-
-      expect(response.ok()).toBeFalsy();
-      expect(response.status()).toBe(404);
+      await assertNonExistingId(request, USERS_ENDPOINT, userId);
     });
   });
 });
