@@ -14,7 +14,7 @@ async function validateRequest(response: APIResponse) {
   return result;
 }
 
-test.describe('Tests for /api/users endpoint', () => {
+test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
   test.describe('Without page query parameter', () => {
     let response: APIResponse;
     let result: any;
