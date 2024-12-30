@@ -29,18 +29,21 @@ test.describe(`Tests for ${DUMMY_ENDPOINT} endpoint`, () => {
   });
 
   test.describe('With page query parameter', () => {
-    test('Page number should be equal to query parameter', async ({
-      request,
-    }) => {
-      const PAGE_NUMBER = 1;
-      const response = await request.get(`/${DUMMY_ENDPOINT}`, {
-        params: { page: PAGE_NUMBER },
-      });
-      const result = await validateRequest(response);
-      const { page: pageNumber } = result;
+    const pageNumbers = [1, 2];
 
-      expect(pageNumber).toBe(PAGE_NUMBER);
-    });
+    pageNumbers.forEach((pageNumber) =>
+      test(`Page number should be equal to query parameter, page=${pageNumber}`, async ({
+        request,
+      }) => {
+        const response = await request.get(`/${DUMMY_ENDPOINT}`, {
+          params: { page: pageNumber },
+        });
+        const result = await validateRequest(response);
+        const { page: resultPageNumber } = result;
+
+        expect(resultPageNumber).toBe(pageNumber);
+      })
+    );
 
     test('Should return 404 status code for non existing page', async ({
       request,
