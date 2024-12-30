@@ -1,18 +1,7 @@
 import { test, expect, APIResponse } from '@playwright/test';
+import { validateRequest } from './utils';
 
 const USERS_ENDPOINT = 'api/users';
-
-async function validateRequest(response: APIResponse) {
-  // The request is fulfilled
-  expect(response.ok()).toBeTruthy();
-  expect(response.status()).toBe(200);
-
-  const result = await response.json();
-  // The result is not empty
-  expect(result).toBeTruthy();
-
-  return result;
-}
 
 test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
   test.describe('Without page query parameter', () => {
