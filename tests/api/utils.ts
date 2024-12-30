@@ -1,9 +1,9 @@
 import { expect, APIResponse, APIRequestContext } from '@playwright/test';
 
-export async function validateRequest(response: APIResponse) {
+export async function validateRequest(response: APIResponse, statusCode = 200) {
   // The request is fulfilled
   expect(response.ok()).toBeTruthy();
-  expect(response.status()).toBe(200);
+  expect(response.status()).toBe(statusCode);
 
   const result = await response.json();
   // The result is not empty
