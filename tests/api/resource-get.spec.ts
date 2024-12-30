@@ -58,22 +58,26 @@ test.describe(`Tests for ${DUMMY_ENDPOINT} endpoint`, () => {
   });
 
   test.describe('Tests for single resource', () => {
-    test('Should return resource data', async ({ request }) => {
-      const resourceId = 1;
+    const resourceIds = [1, 2, 3, 4];
 
-      const response = await request.get(`/${DUMMY_ENDPOINT}/${resourceId}`);
-      const result = await validateRequest(response);
+    resourceIds.forEach((resourceId) => {
+      test(`Should return resource data, resource_id=${resourceId}`, async ({
+        request,
+      }) => {
+        const response = await request.get(`/${DUMMY_ENDPOINT}/${resourceId}`);
+        const result = await validateRequest(response);
 
-      const data = result.data;
-      expect(data).toBeTruthy();
+        const data = result.data;
+        expect(data).toBeTruthy();
 
-      const id = data.id;
-      expect(data).toBeTruthy();
-      expect(id).toBe(resourceId);
+        const id = data.id;
+        expect(data).toBeTruthy();
+        expect(id).toBe(resourceId);
 
-      expect(data).toHaveProperty('name');
-      expect(data).toHaveProperty('year');
-      expect(data).toHaveProperty('color');
+        expect(data).toHaveProperty('name');
+        expect(data).toHaveProperty('year');
+        expect(data).toHaveProperty('color');
+      });
     });
 
     test('Should return 404 status code for non existing resource id', async ({
