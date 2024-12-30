@@ -1,4 +1,4 @@
-import { expect, APIResponse } from '@playwright/test';
+import { expect, APIResponse, APIRequestContext } from '@playwright/test';
 
 export async function validateRequest(response: APIResponse) {
   // The request is fulfilled
@@ -10,4 +10,18 @@ export async function validateRequest(response: APIResponse) {
   expect(result).toBeTruthy();
 
   return result;
+}
+
+export async function assertPageNumber(
+  request: APIRequestContext,
+  endpoint: string,
+  pageNumber: number
+) {
+  const response = await request.get(`/${endpoint}`, {
+    params: { page: pageNumber },
+  });
+  const result = await validateRequest(response);
+  const { page: resultPageNumber } = result;
+
+  expect(resultPageNumber).toBe(pageNumber);
 }

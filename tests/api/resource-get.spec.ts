@@ -1,5 +1,5 @@
 import { test, expect, APIResponse } from '@playwright/test';
-import { validateRequest } from './utils';
+import { assertPageNumber, validateRequest } from './utils';
 
 const DUMMY_ENDPOINT = 'api/dummy_resource';
 
@@ -35,13 +35,7 @@ test.describe(`Tests for ${DUMMY_ENDPOINT} endpoint`, () => {
       test(`Page number should be equal to query parameter, page=${pageNumber}`, async ({
         request,
       }) => {
-        const response = await request.get(`/${DUMMY_ENDPOINT}`, {
-          params: { page: pageNumber },
-        });
-        const result = await validateRequest(response);
-        const { page: resultPageNumber } = result;
-
-        expect(resultPageNumber).toBe(pageNumber);
+        await assertPageNumber(request, DUMMY_ENDPOINT, pageNumber);
       })
     );
 
