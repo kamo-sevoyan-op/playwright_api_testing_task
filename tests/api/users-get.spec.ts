@@ -37,7 +37,6 @@ test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
         params: { page: PAGE_NUMBER },
       });
       const result = await validateRequest(response);
-
       const { page: pageNumber } = result;
 
       expect(pageNumber).toBe(PAGE_NUMBER);
@@ -50,6 +49,7 @@ test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
       const response = await request.get(`/${USERS_ENDPOINT}`, {
         params: { page: pageNumber },
       });
+
       expect(response.ok()).toBeFalsy();
       expect(response.status()).toBe(404);
     });
@@ -58,11 +58,10 @@ test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
   test.describe('Tests for single user', () => {
     test('Should return user data', async ({ request }) => {
       const userId = 1;
-
       const response = await request.get(`/${USERS_ENDPOINT}/${userId}`);
       const result = await validateRequest(response);
-
       const data = result.data;
+
       expect(data).toBeTruthy();
 
       const id = data.id;
