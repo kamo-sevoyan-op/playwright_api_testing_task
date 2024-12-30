@@ -59,23 +59,28 @@ test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
   });
 
   test.describe('Tests for single user', () => {
-    test('Should return user data', async ({ request }) => {
-      const userId = 1;
-      const response = await request.get(`/${USERS_ENDPOINT}/${userId}`);
-      const result = await validateRequest(response);
-      const data = result.data;
+    const userIds = [1, 2, 3, 4];
 
-      expect(data).toBeTruthy();
+    userIds.forEach((userId) =>
+      test(`Should return user data, user_id=${userId}`, async ({
+        request,
+      }) => {
+        const response = await request.get(`/${USERS_ENDPOINT}/${userId}`);
+        const result = await validateRequest(response);
+        const data = result.data;
 
-      const id = data.id;
-      expect(data).toBeTruthy();
-      expect(id).toBe(userId);
+        expect(data).toBeTruthy();
 
-      expect(data).toHaveProperty('first_name');
-      expect(data).toHaveProperty('last_name');
-      expect(data).toHaveProperty('email');
-      expect(data).toHaveProperty('avatar');
-    });
+        const id = data.id;
+        expect(data).toBeTruthy();
+        expect(id).toBe(userId);
+
+        expect(data).toHaveProperty('first_name');
+        expect(data).toHaveProperty('last_name');
+        expect(data).toHaveProperty('email');
+        expect(data).toHaveProperty('avatar');
+      })
+    );
 
     test('Should return 404 status code for non existing user id', async ({
       request,
