@@ -25,7 +25,7 @@ test.describe(`Tests for ${DUMMY_ENDPOINT}|GET endpoint`, () => {
       await assertPageData(result);
     });
 
-    test('Default value for page query parameter should be "1"', async () => {
+    test('Default value for page query parameter should be 1', async () => {
       assertDefaultPage(result);
     });
   });
