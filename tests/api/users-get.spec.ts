@@ -1,5 +1,6 @@
 import { test, expect, APIResponse } from '@playwright/test';
 import {
+  assertData,
   assertDefaultPage,
   assertNonExistingId,
   assertNonExistingPage,
@@ -57,20 +58,8 @@ test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
       test(`Should return user data, user_id=${userId}`, async ({
         request,
       }) => {
-        const response = await request.get(`/${USERS_ENDPOINT}/${userId}`);
-        const result = await validateRequest(response);
-        const data = result.data;
-
-        expect(data).toBeTruthy();
-
-        const id = data.id;
-        expect(data).toBeTruthy();
-        expect(id).toBe(userId);
-
-        expect(data).toHaveProperty('first_name');
-        expect(data).toHaveProperty('last_name');
-        expect(data).toHaveProperty('email');
-        expect(data).toHaveProperty('avatar');
+        const props = ['first_name', 'last_name', 'email', 'avatar'];
+        await assertData(request, USERS_ENDPOINT, userId, props);
       })
     );
 

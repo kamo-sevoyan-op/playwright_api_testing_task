@@ -55,3 +55,22 @@ export async function assertNonExistingId(
   expect(response.ok()).toBeFalsy();
   expect(response.status()).toBe(404);
 }
+
+export async function assertData(
+  request: APIRequestContext,
+  endpoint: string,
+  testId: number,
+  props: string[]
+) {
+  const response = await request.get(`/${endpoint}/${testId}`);
+  const result = await validateRequest(response);
+  const data = result.data;
+
+  expect(data).toBeTruthy();
+
+  const id = data.id;
+  expect(data).toBeTruthy();
+  expect(id).toBe(testId);
+
+  props.forEach((p) => expect(data).toHaveProperty(p));
+}

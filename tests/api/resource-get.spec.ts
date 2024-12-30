@@ -1,5 +1,6 @@
 import { test, expect, APIResponse } from '@playwright/test';
 import {
+  assertData,
   assertDefaultPage,
   assertNonExistingId,
   assertNonExistingPage,
@@ -57,19 +58,8 @@ test.describe(`Tests for ${DUMMY_ENDPOINT} endpoint`, () => {
       test(`Should return resource data, resource_id=${resourceId}`, async ({
         request,
       }) => {
-        const response = await request.get(`/${DUMMY_ENDPOINT}/${resourceId}`);
-        const result = await validateRequest(response);
-
-        const data = result.data;
-        expect(data).toBeTruthy();
-
-        const id = data.id;
-        expect(data).toBeTruthy();
-        expect(id).toBe(resourceId);
-
-        expect(data).toHaveProperty('name');
-        expect(data).toHaveProperty('year');
-        expect(data).toHaveProperty('color');
+        const props = ['name', 'year', 'color'];
+        await assertData(request, DUMMY_ENDPOINT, resourceId, props);
       });
     });
 
