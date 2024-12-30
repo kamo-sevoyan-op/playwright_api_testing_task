@@ -1,5 +1,6 @@
 import { test, expect, APIResponse } from '@playwright/test';
 import {
+  assertDefaultPage,
   assertNonExistingPage,
   assertPageNumber,
   validateRequest,
@@ -26,9 +27,7 @@ test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
     });
 
     test('Default value for page query parameter should be "1"', async () => {
-      const { page: pageNumber } = result;
-      expect(pageNumber).toBeTruthy();
-      expect(pageNumber).toBe(1);
+      assertDefaultPage(result);
     });
   });
 

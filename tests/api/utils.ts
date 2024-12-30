@@ -38,3 +38,11 @@ export async function assertNonExistingPage(
   expect(response.ok()).toBeFalsy();
   expect(response.status()).toBe(404);
 }
+
+export function assertDefaultPage(
+  result: any,
+) { 
+  const { page: pageNumber } = result;
+  expect(pageNumber).toBeTruthy();
+  expect(pageNumber).toBe(1);
+}
