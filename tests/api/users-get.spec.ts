@@ -1,9 +1,10 @@
-import { test, expect, APIResponse } from '@playwright/test';
+import { test, APIResponse } from '@playwright/test';
 import {
   assertData,
   assertDefaultPage,
   assertNonExistingId,
   assertNonExistingPage,
+  assertPageData,
   assertPageNumber,
   validateRequest,
 } from './utils';
@@ -21,11 +22,7 @@ test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
     });
 
     test('Should return users', async () => {
-      const { per_page, data } = result;
-
-      expect(per_page).toBeTruthy();
-      expect(data).toBeTruthy();
-      expect(data).toHaveLength(per_page);
+      await assertPageData(result);
     });
 
     test('Default value for page query parameter should be "1"', async () => {

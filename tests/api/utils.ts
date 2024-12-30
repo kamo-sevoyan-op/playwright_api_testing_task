@@ -74,3 +74,11 @@ export async function assertData(
 
   props.forEach((p) => expect(data).toHaveProperty(p));
 }
+
+export async function assertPageData(result: any) {
+  const { per_page, data } = result;
+
+  expect(per_page).toBeTruthy();
+  expect(data).toBeTruthy();
+  expect(data).toHaveLength(per_page);
+}
