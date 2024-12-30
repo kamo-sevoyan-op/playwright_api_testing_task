@@ -15,7 +15,6 @@ test.describe(`Tests for ${USERS_ENDPOINT}|POST endpoint`, () => {
 
     const data = await validateRequest(response, 201);
 
-    expect(data).toBeTruthy();
     expect(data).toHaveProperty('name', userData.name);
     expect(data).toHaveProperty('job', userData.job);
     expect(data).toHaveProperty('id');
