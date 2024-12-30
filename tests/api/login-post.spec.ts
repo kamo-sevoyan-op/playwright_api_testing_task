@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { validateRequest } from './utils';
+import { validateResponse } from './utils';
 
 const LOGIN_ENDPOINT = 'api/login';
 const { LOGIN_EMAIL, LOGIN_PASSWORD } = process.env;
@@ -15,7 +15,7 @@ test.describe(`Tests for ${LOGIN_ENDPOINT}|POST endpoint`, () => {
       data: credentials,
     });
 
-    const data = await validateRequest(response);
+    const data = await validateResponse(response);
 
     expect(data).toHaveProperty('token');
   });

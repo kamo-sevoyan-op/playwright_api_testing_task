@@ -6,7 +6,7 @@ import {
   assertNonExistingPage,
   assertPageData,
   assertPageNumber,
-  validateRequest,
+  validateResponse,
 } from './utils';
 
 const DUMMY_ENDPOINT = 'api/dummy_resource';
@@ -18,7 +18,7 @@ test.describe(`Tests for ${DUMMY_ENDPOINT}|GET endpoint`, () => {
 
     test.beforeEach(async ({ request }) => {
       response = await request.get(`/${DUMMY_ENDPOINT}`);
-      result = await validateRequest(response);
+      result = await validateResponse(response);
     });
 
     test('Should return resources', async () => {

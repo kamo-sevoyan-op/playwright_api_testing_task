@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { validateRequest } from './utils';
+import { validateResponse } from './utils';
 
 const USERS_ENDPOINT = 'api/users';
 
@@ -15,7 +15,7 @@ test.describe(`Tests for ${USERS_ENDPOINT}|PUT endpoint`, () => {
     const response = await request.put(`${USERS_ENDPOINT}/${userId}`, {
       data: userData,
     });
-    const data = await validateRequest(response);
+    const data = await validateResponse(response);
 
     expect(data).toHaveProperty('name', userData.name);
     expect(data).toHaveProperty('job', userData.job);

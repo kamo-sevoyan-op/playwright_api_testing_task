@@ -1,6 +1,9 @@
 import { expect, APIResponse, APIRequestContext } from '@playwright/test';
 
-export async function validateRequest(response: APIResponse, statusCode = 200) {
+export async function validateResponse(
+  response: APIResponse,
+  statusCode = 200
+) {
   // The request is fulfilled
   expect(response.ok()).toBeTruthy();
   expect(response.status()).toBe(statusCode);
@@ -20,7 +23,7 @@ export async function assertPageNumber(
   const response = await request.get(`/${endpoint}`, {
     params: { page: pageNumber },
   });
-  const result = await validateRequest(response);
+  const result = await validateResponse(response);
   const { page: resultPageNumber } = result;
 
   expect(resultPageNumber).toBe(pageNumber);
@@ -63,7 +66,7 @@ export async function assertData(
   props: string[]
 ) {
   const response = await request.get(`/${endpoint}/${testId}`);
-  const result = await validateRequest(response);
+  const result = await validateResponse(response);
   const data = result.data;
 
   expect(data).toBeTruthy();

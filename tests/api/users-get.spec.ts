@@ -6,7 +6,7 @@ import {
   assertNonExistingPage,
   assertPageData,
   assertPageNumber,
-  validateRequest,
+  validateResponse,
 } from './utils';
 
 const USERS_ENDPOINT = 'api/users';
@@ -18,7 +18,7 @@ test.describe(`Tests for ${USERS_ENDPOINT}|GET endpoint`, () => {
 
     test.beforeEach(async ({ request }) => {
       response = await request.get(`/${USERS_ENDPOINT}`);
-      result = await validateRequest(response);
+      result = await validateResponse(response);
     });
 
     test('Should return users', async () => {
