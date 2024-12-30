@@ -11,7 +11,7 @@ import {
 
 const USERS_ENDPOINT = 'api/users';
 
-test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
+test.describe(`Tests for ${USERS_ENDPOINT}|GET endpoint`, () => {
   test.describe('Without page query parameter', () => {
     let response: APIResponse;
     let result: any;

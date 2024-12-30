@@ -11,7 +11,7 @@ import {
 
 const DUMMY_ENDPOINT = 'api/dummy_resource';
 
-test.describe(`Tests for ${DUMMY_ENDPOINT} endpoint`, () => {
+test.describe(`Tests for ${DUMMY_ENDPOINT}|GET endpoint`, () => {
   test.describe('Without page query parameter', () => {
     let response: APIResponse;
     let result: any;
