@@ -1,5 +1,9 @@
 import { test, expect, APIResponse } from '@playwright/test';
-import { assertPageNumber, validateRequest } from './utils';
+import {
+  assertNonExistingPage,
+  assertPageNumber,
+  validateRequest,
+} from './utils';
 
 const USERS_ENDPOINT = 'api/users';
 
@@ -42,13 +46,7 @@ test.describe(`Tests for ${USERS_ENDPOINT} endpoint`, () => {
     test('Should return 404 status code for non existing page', async ({
       request,
     }) => {
-      const pageNumber = 3;
-      const response = await request.get(`/${USERS_ENDPOINT}`, {
-        params: { page: pageNumber },
-      });
-
-      expect(response.ok()).toBeFalsy();
-      expect(response.status()).toBe(404);
+      await assertNonExistingPage(request, USERS_ENDPOINT, 3);
     });
   });
 

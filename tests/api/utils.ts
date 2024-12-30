@@ -25,3 +25,16 @@ export async function assertPageNumber(
 
   expect(resultPageNumber).toBe(pageNumber);
 }
+
+export async function assertNonExistingPage(
+  request: APIRequestContext,
+  endpoint: string,
+  pageNumber: number
+) {
+  const response = await request.get(`/${endpoint}`, {
+    params: { page: pageNumber },
+  });
+
+  expect(response.ok()).toBeFalsy();
+  expect(response.status()).toBe(404);
+}
